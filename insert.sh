@@ -40,8 +40,6 @@ else
                                         for (( i=3;i<=$numberofrecords;i++ ));
                                         do
                                             valueofpksinsert[$i-3]=`head -$i ./databases/$DBname/$tabletoinsertinto | tail -1 |cut -d: -f1`
-                                            
-                                        
                                         done
                                         while [ $pkinsertflag -eq 0 ] 
                                         do
@@ -55,7 +53,7 @@ else
                                         then    
                                             read pk
                                                 case $pk in
-                                                    +([a-zA-Z1-9]*[a-zA-Z0-9@._]))
+                                                    +([a-zA-Z1-9][a-zA-Z0-9@._]))
 					                                                if [[ " ${valueofpksinsert[@]} " =~ " $pk " ]]
 					                                                then 
                                                                     clear
@@ -78,7 +76,7 @@ else
                                         else
                                             read pk
                                             case $pk in
-                                                    +([1-9]*[0-9]))
+                                                    +([1-9]) | +([1-9]*[0-9]))
 					                                                if [[ " ${valueofpksinsert[@]} " =~ " $pk " ]]
 					                                                then 
 					                                                echo "This primary key already exists"
@@ -101,12 +99,10 @@ else
                                         #awk -F: '{if(NR == 2)print $0}' ./databases/$DBname/$tabletoinsertinto
                                         #problem in capturing the the datatypes with awk
                                         #read value <<< $(awk -F: '{if(NR == 2)print $0}' ./databases/$DBname/$tabletoinsertinto)
-                                        
-                                        
-                                       
                                         typeset -i valueinsetflag=0
                                         for (( i=1;i<numberoffields;i++ ));    
                                         do
+                                        valuestoinsert[$i]=":null"
                                         if [ $i -gt 1 ]
                                         then 
                                             let valueinsetflag--
@@ -116,26 +112,26 @@ else
                                         echo "enter the value of the ${namesofcolsinsert[$i]}"
 					                    echo "${datatypesinsertasarray[$i]} is the data of the ${namesofcolsinsert[$i]}"
 					                    echo "Press + if you want to skip this column"
-                                        echo "To go back press - if you leave the record would be deleted"
+                                        echo "To go back press - if you leave the rest of columns would be set to null"
 					                    echo "---------------------------------------------"
                                         if [[ "${datatypesinsertasarray[$i]}" =~ "string" ]]
                                         then    
                                             read value
                                                 case $value in
-                                                    +([a-zA-Z0-9]*[a-zA-Z0-9@._]))
+                                                  +([a-zA-Z0-9]) | +([a-zA-Z0-9]*[a-zA-Z0-9@._]))
                                                                     clear
 					                                                valuestoinsert[$i]=":$value"
 					                                                let valueinsetflag++
 					                                     ;;
                                                     -)              clear
-					                                                source ./insert.sh
+					                                                let valueinsetflag+=1024
 					                                     ;;
                                                     +)
-                                                             valuestoinsert[$i]=":null"
+                                                            clear
 					                                        let valueinsetflag++
                                                             ;;
 			                                        *)	                                                        
-				                                    	        echo "Not a valid option"
+				                                    	        echo "Not a valid input"
 					                                     ;;
                                                 esac
                                         else
@@ -147,10 +143,9 @@ else
 					                                            
 					                                     ;;
                                                     -)
-					                                         source ./insert.sh
+					                                        let valueinsetflag+=1024
 					                                     ;;
                                                     +)
-                                                            valuestoinsert[$i]=":null"
 					                                        let valueinsetflag++
                                                         ;;
 			                                        *)	                                                        
@@ -166,7 +161,7 @@ else
                                         #awk -F: '{ if($1==133){$1=333330;print $0} }' ./databases/$DBname/$tabletoinsertinto
 
                                         echo ${valuestoinsert[*]}  >> ./databases/$DBname/$tabletoinsertinto
-                                        sleep 10
+                                        sleep 4
                                         source ./insert.sh
 
                                     else
