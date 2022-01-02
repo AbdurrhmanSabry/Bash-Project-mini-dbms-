@@ -1,10 +1,10 @@
 #!/bin/bash
 shopt -s extglob
 export LC_COLLATE=C
-clear
 PS3="Please choose one of the following options >"
 while true 
-do	
+do
+clear
 echo "Welcome to the A&A DBMS"
 echo "Done by Abdurrhman Sabry and Abdelrahim Saad"
 echo "---------------------------------------------"
@@ -16,9 +16,11 @@ echo "5) Exit"
 echo "---------------------------------------------" 
 read 
 	case $REPLY in
-		1)   source ./createdb.sh
+		1)  clear
+			 source ./createdb.sh
 			;;	
 		2) 
+			clear
 			source ./connectdb.sh
 			;;
 		3)	
@@ -26,7 +28,8 @@ read
 			echo "The databases are: "
 			ls ./databases
 			;;
-		4) source ./deletedb.sh
+		4) clear
+			source ./deletedb.sh
 			;;
 			
 		5)     
@@ -34,8 +37,8 @@ read
 		
 				;;
 		*)	
-			clear
-			echo "Not valid"
+			clear 
+			echo "Not a valid option"
 			;;	
 	
 	esac
