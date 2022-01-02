@@ -43,7 +43,35 @@ read
 			case $pk in
 			+([a-zA-Z_]*[a-zA-Z0-9_]))
 					colnames[0]=$pk
-					datatypes[0]="int"
+					typeset -i pkdatatype=0
+					while [ $pkdatatype -eq 0 ]
+					do
+					clear
+					 
+					echo "enter the data type of the primary key $pk"
+					echo "1)int"
+					echo "2)string"
+					echo "To go back press 0 if you leave the table would be deleted"
+					echo "---------------------------------------------"
+					read data
+					case $data in
+						1)
+							datatypes[0]="int"
+							let pkdatatype++
+							;;
+						2)
+							datatypes[0]=string
+							let pkdatatype++
+						;;
+						0)	
+						rm ./databases/$DBname/$TBname
+						source ./tablemenu.sh
+						;;
+						*)	
+						echo "Not a valid option"
+						;;	
+					esac
+					done	
 					let primflag++
 				;;
 			0)
@@ -96,17 +124,21 @@ read
 			do
 			clear
 			echo $((i+1))":"
-			echo "enter the data type of " $value 
-			echo "only int or string"
+			echo "enter the data type of $value" 
+			echo "1)int"
+			echo "2)string"
 			echo "To go back press 0 if you leave the table would be deleted"
 			echo "---------------------------------------------"
 			read data
 			case $data in
-				int|string)
-					datatypes[$i]=":"$data
+				1)
+					datatypes[$i]=":int"
 					let dataflag++
 					;;
-			
+				2)
+					datatypes[$i]=":string"
+					let dataflag++
+					;;
 				0)	
 					rm ./databases/$DBname/$TBname
 					source ./tablemenu.sh
