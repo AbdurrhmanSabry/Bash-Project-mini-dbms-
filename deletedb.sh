@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 while true   
 do
 echo "The avaliable databases are: "
@@ -28,7 +27,7 @@ case $REPLY in
 		case $REPLY in
 		 +([a-zA-Z_]*[a-zA-Z0-9_]))
 			name=$REPLY
-			if [ `find $HOME/dbms/databases -maxdepth 0 -empty` ]
+			if [ `find ./dbms/databases -maxdepth 0 -empty` ]
 			then 
 				clear
 				echo " There is no database to delete"
