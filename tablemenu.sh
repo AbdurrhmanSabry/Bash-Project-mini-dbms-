@@ -19,9 +19,15 @@ read
 		1) 	clear   	
 			source ./createtable.sh
 			;;	
-		2)  	clear
+		2)  clear
+			if [ `find ./databases/$DBname/ -maxdepth 0 -empty` ]
+			then 
+				clear
+				echo "The $DBname database is empty"
+			else
 			echo "The avaliable tables are: "
-			ls ./databases/$DBname 
+			ls ./databases/$DBname
+			fi 
 			;;
 		3)	
 			source ./droptable.sh
