@@ -1,7 +1,7 @@
 #!/bin/bash
 shopt -s extglob
 export LC_COLLATE=C
-if [ find ./databases/$DBname -maxdepth 0 -empty ]
+if [ `find ./databases/$DBname -maxdepth 0 -empty` ]
 then 
     echo "The $DBname is empty no table to be dropped"
 else
