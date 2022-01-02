@@ -32,11 +32,8 @@ read
 			;;
 			
 		5)     clear
-			echo "Enter the name of the table"
-			read selectedtable
-			cat ./databases/$DBname/$selectedtable
-			echo "select" $DBname
-			;;
+			source ./select.sh
+						;;
 		6)	echo "delete" $DBname
 			;;
 		7)	clear
