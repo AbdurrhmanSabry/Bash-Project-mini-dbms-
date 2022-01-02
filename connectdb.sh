@@ -20,7 +20,7 @@ case $REPLY in
 		echo "To go back press 0"
 		echo "---------------------------------------------"
 		read DBname
-		if [ `find $HOME/dbms/databases -maxdepth 0 -empty` ]
+		if [ `find ./dbms/databases -maxdepth 0 -empty` ]
 		then 
 			clear
 			echo " There is no database to conncet to"
