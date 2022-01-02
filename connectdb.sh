@@ -20,26 +20,38 @@ case $REPLY in
 		echo "To go back press 0"
 		echo "---------------------------------------------"
 		read DBname
-		if [ `find ./dbms/databases -maxdepth 0 -empty` ]
-		then 
+		case $Dname in 
+			+([a-zA-Z_]*[a-zA-Z0-9_]))
+							if [ `find ./dbms/databases -maxdepth 0 -empty` ]
+							then 
+								clear
+								echo " There is no database to conncet to"
+								sleep 2
+								source ./connectdb.sh
+							elif [ -d ./databases/$DBname ]
+        					then
+								clear		 
+								source ./tablemenu.sh
+								echo  "Connected to" $DBname "successfully"
+								sleep 2
+							else
+								clear
+								echo "This database does not exits"	
+ 								sleep 2
+								source ./connectdb.sh
+							fi
+					;;
+			0)
+					clear
+					source ./connectdb.sh        
+				;;
+			*)
 			clear
-			echo " There is no database to conncet to"
-			sleep 2
-			source ./connectdb.sh
-		elif [ -d ./databases/$DBname ]
-        then		 
-			source ./tablemenu.sh
-			echo  "Connected to" $DBname "successfully"
-			sleep 2
-		elif [[ $DBname == 0 ]]
-		then
-			source ./connectdb.sh        
-		else
-			echo "This database does not exits"	
+			echo "Either you enter invalid option or this database does not exits"	
  			sleep 2
 			source ./connectdb.sh
-			
-		fi
+			;;
+		esac			
 		done
  		;;
 	2) source ./main.sh
@@ -50,7 +62,7 @@ case $REPLY in
 		;;
 
 	*)
-		echo "Not valid option"
+		echo "Not a valid option"
 		;;
 esac 
 done
