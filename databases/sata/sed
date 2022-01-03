@@ -3,9 +3,13 @@ int :string :string :int :string
 210 : afas
 1000 :afsf
 333  :fasfas
-:ali@gmail.com :ali :nasr city :null :ali@gmail.com 200 200 200 200 200 200 200 200
+:ali@gmail.com :ali :nasr city :null 
 :01113456789 :ali :null :null
 :032264 :ahmed :null :null
 200 :said :null :6555 :adsadas :null
 201 :abdu :null :01113459732 :abdu@gmail.com 
 202 :yasmina :null :01326459786 :null
+3 :null
+6 :null :null :null :null
+7 :null :null :null :null
+8 :null :cairo :0 :ali
