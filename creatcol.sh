@@ -46,7 +46,7 @@ read
 					typeset -i pkdatatype=0
 					while [ $pkdatatype -eq 0 ]
 					do
-					clear
+					
 					 
 					echo "enter the data type of the primary key $pk"
 					echo "1)int"
@@ -60,14 +60,15 @@ read
 							let pkdatatype++
 							;;
 						2)
-							datatypes[0]=string
+							datatypes[0]="string"
 							let pkdatatype++
 						;;
 						0)	
 						rm ./databases/$DBname/$TBname
 						source ./tablemenu.sh
 						;;
-						*)	
+						*)
+						clear	
 						echo "Not a valid option"
 						;;	
 					esac
@@ -122,7 +123,7 @@ read
 			typeset -i dataflag=0
 			while [ $dataflag -eq 0 ]
 			do
-			clear
+			
 			echo $((i+1))":"
 			echo "enter the data type of $value" 
 			echo "1)int"
@@ -131,11 +132,13 @@ read
 			echo "---------------------------------------------"
 			read data
 			case $data in
-				1)
+				1)	
+					clear
 					datatypes[$i]=":int"
 					let dataflag++
 					;;
-				2)
+				2)	
+					clear
 					datatypes[$i]=":string"
 					let dataflag++
 					;;
@@ -144,6 +147,7 @@ read
 					source ./tablemenu.sh
 					;;
 				*)	
+					clear
 					echo "Not a valid name"
 					;;	
 			esac
@@ -161,7 +165,7 @@ read
 			echo "---------------------------------------------"
 			cat ./databases/$DBname/$TBname 
 			
-						sleep 5
+						sleep 2
 						source ./tablemenu.sh
 					fi
 					;;
