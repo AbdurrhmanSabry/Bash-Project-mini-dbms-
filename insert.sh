@@ -6,6 +6,7 @@ if [ `find ./databases/$DBname -maxdepth 0 -empty` ]
 then 
     echo "---------------------------------------------" 
     echo "The $DBname is empty no table to insert into"
+    echo "You need to create a table first"
     echo "---------------------------------------------" 
 else
     while true
@@ -18,11 +19,9 @@ else
     echo "---------------------------------------------" 
     read tabletoinsertinto
         case $tabletoinsertinto in
-                +([a-zA-Z1-9_]*[a-zA-Z0-9_]))
+                +([a-zA-Z_]*[a-zA-Z0-9_]))
                                     if [ -f ./databases/$DBname/$tabletoinsertinto ]
                                     then
-                                        
-                                        
                                         declare -a datatypesinsertasarray=()
                                         declare -a namesofcolsinsert=()
                                         numberoffields=0   
@@ -109,6 +108,7 @@ else
                                         fi
                                         while [ $valueinsetflag -eq 0 ]
                                         do
+                            
                                         echo "enter the value of the ${namesofcolsinsert[$i]}"
 					                    echo "${datatypesinsertasarray[$i]} is the data of the ${namesofcolsinsert[$i]}"
 					                    echo "Press + if you want to skip this column"
@@ -120,11 +120,11 @@ else
                                                 case $value in
                                                   +([a-zA-Z0-9]) | +([a-zA-Z0-9]*[a-zA-Z0-9@._]))
                                                                     clear
-					                                                valuestoinsert[$i]=":$value"
-					                                                let valueinsetflag++
+					                                        valuestoinsert[$i]=":$value"
+					                                        let valueinsetflag++
 					                                     ;;
                                                     -)              clear
-					                                                let valueinsetflag+=1024
+					                                        let valueinsetflag+=1024
 					                                     ;;
                                                     +)
                                                             clear
@@ -161,7 +161,8 @@ else
                                         #awk -F: '{ if($1==133){$1=333330;print $0} }' ./databases/$DBname/$tabletoinsertinto
 
                                         echo ${valuestoinsert[*]}  >> ./databases/$DBname/$tabletoinsertinto
-                                        sleep 4
+                                        echo "Inserted successfully"
+                                        sleep 1
                                         source ./insert.sh
 
                                     else
