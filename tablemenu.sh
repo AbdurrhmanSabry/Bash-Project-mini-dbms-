@@ -1,5 +1,5 @@
 #!/bin/bash
-clear
+
 while true
 do 
 echo "welcome to" $DBname "Database"
@@ -23,10 +23,14 @@ read
 			if [ `find ./databases/$DBname/ -maxdepth 0 -empty` ]
 			then 
 				clear
+				echo "---------------------------------------------"
 				echo "The $DBname database is empty"
+				echo "---------------------------------------------"
 			else
+			echo "---------------------------------------------"
 			echo "The avaliable tables are: "
 			ls ./databases/$DBname
+			echo "---------------------------------------------"
 			fi 
 			;;
 		3)	
@@ -40,7 +44,8 @@ read
 		5)     clear
 			source ./select.sh
 						;;
-		6)	echo "delete" $DBname
+		6)	
+			source ./deleterecord.sh
 			;;
 		7)	clear
 			echo	"Updated" $DBname
