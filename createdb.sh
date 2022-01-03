@@ -22,7 +22,7 @@ read
                        			case $name in
 						+([a-zA-Z_]*[a-zA-Z0-9_]))
 							if [ -d ./databases/$name ]
-                       						 then
+                       			then
 								echo "This database already exits"
 							else
 							clear	
