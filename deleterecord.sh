@@ -47,7 +47,7 @@ while true
 									read answer
 									case $answer in
 										1)
-												sed -i -n '3,$d' ./databases/$DBname/$tabledeletefrom
+												sed -i  '3,$d' ./databases/$DBname/$tabledeletefrom
 											;;
 										2)	
 										declare -a datatypesdelete=()
@@ -81,7 +81,7 @@ while true
                                                     +([a-zA-Z1-9][a-zA-Z0-9@._]))
 					                                                if [[ " ${valuesofpkdelete[@]} " =~ " $pk " ]]
 					                                                then 
-																	sed -i  "/^$pk/d" ./databases/$DBname/$tabledeletefrom
+																	sed -i  "/^$pk :/d" ./databases/$DBname/$tabledeletefrom
                                                                     let pkdeleteflag++
 					                                                else
 																	clear
