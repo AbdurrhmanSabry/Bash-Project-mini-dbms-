@@ -160,8 +160,8 @@ read
 			echo "and their datatypes are"
 			echo ${datatypes[@]}
 			echo "---------------------------------------------"
-			echo ${colnames[*]} > ./databases/$DBname/$TBname
-			sed -i "1 a ${datatypes[*]}" ./databases/$DBname/$TBname
+			echo ${colnames[*]} >> ./databases/$DBname/$TBname
+			echo ${datatypes[*]} >> ./databases/$DBname/$TBname
 			echo "---------------------------------------------"
 			cat ./databases/$DBname/$TBname 
 			
