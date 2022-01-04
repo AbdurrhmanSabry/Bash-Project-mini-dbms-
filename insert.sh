@@ -101,10 +101,11 @@ else
                                         typeset -i valueinsetflag=0
                                         for (( i=1;i<numberoffields;i++ ));    
                                         do
+                                       
                                         valuestoinsert[$i]=":null"
-                                        if [ $i -gt 1 ]
-                                        then 
-                                            let valueinsetflag--
+                                        if [[ $valueinsetflag -gt 0 ]]
+                                        then
+                                                    let valueinsetflag--
                                         fi
                                         while [ $valueinsetflag -eq 0 ]
                                         do
@@ -119,7 +120,7 @@ else
                                             read value
                                                 case $value in
                                                   +([a-zA-Z0-9]) | +([a-zA-Z0-9]*[a-zA-Z0-9@._]))
-                                                                    clear
+                                                            clear
 					                                        valuestoinsert[$i]=":$value"
 					                                        let valueinsetflag++
 					                                     ;;
@@ -137,7 +138,7 @@ else
                                         else
                                             read value
                                             case $value in
-                                                    +([0-9]))
+                                                    +([0-9]) | +([0-9]*[0-9]))
 					                                         valuestoinsert[$i]=":$value"
 					                                         let valueinsetflag++
 					                                            
