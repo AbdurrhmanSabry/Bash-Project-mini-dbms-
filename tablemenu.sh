@@ -1,7 +1,7 @@
 #!/bin/bash
-
 while true
 do 
+clear
 echo "welcome to" $DBname "Database"
 echo "1) Create Table" 
 echo "2) List Tables" 
@@ -19,19 +19,8 @@ read
 		1) 	clear   	
 			source ./createtable.sh
 			;;	
-		2)  clear
-			if [ `find ./databases/$DBname/ -maxdepth 0 -empty` ]
-			then 
-				clear
-				echo "---------------------------------------------"
-				echo "The $DBname database is empty"
-				echo "---------------------------------------------"
-			else
-			echo "---------------------------------------------"
-			echo "The avaliable tables are: "
-			ls ./databases/$DBname
-			echo "---------------------------------------------"
-			fi 
+		2)  
+			source ./listtable.sh
 			;;
 		3)	
 			source ./droptable.sh
@@ -48,7 +37,7 @@ read
 			source ./deleterecord.sh
 			;;
 		7)	clear
-			echo	"Updated" $DBname
+			source ./update.sh
 			;;
 		8)	source ./connectdb.sh
 			;;
