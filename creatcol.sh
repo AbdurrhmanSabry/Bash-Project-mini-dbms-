@@ -4,118 +4,144 @@ export LC_COLLATE=C
 clear
 while true
 do
-echo  "1)To enter the number of columns"
-echo  "2)to go back if you leave now the table would be deleted"
-echo "---------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "* 1)To enter the number of columns                          *"
+echo "* 2)to go back if you leave now the table would be deleted  *"
+echo "-------------------------------------------------------------"
 read
 	case $REPLY in
-		1)	while true 
+		1)	
+			clear
+			while true 
 			do
-			echo "Enter the number of columns"
-			echo " The number has to be greater than zero"
-			echo "press 0 to go back to the pervious if you leave the table would be deleted"
-			echo "Please don't start the number with 0"	
-			echo "---------------------------------------------"
+			echo "------------------------------------------------------------------------------"
+			echo "* Enter the number of columns                                                *"
+			echo "* The number has to be greater than zero                                     *"
+			echo "* Press 0 to go back to the pervious if you leave the table would be deleted *"
+			echo "* Please don't start the number with 0                                       *"	
+			echo "------------------------------------------------------------------------------"
 			read number
 			case $number in
 			+([[0-9]))
 			if [[ $number == +([0]*) ]]
 			then 
-				
-			      rm ./databases/$DBname/$TBname
-				echo "you entered 0, Exit"
-				sleep 3					
+				clear
+			    rm ./databases/$DBname/$TBname
+				echo "---------------------------------------------"
+				echo "* you entered 0, Exit                       *"
+				echo "* The $TBname was deleted                   *"
+				echo "---------------------------------------------"
+				sleep 1					
 				source ./tablemenu.sh
-				
-			else	
-			declare -a colnames=()
-			declare -a datatypes=()
+			else
 			typeset -i primflag=0
 			while [ $primflag -eq 0 ] 
 			do
-			echo " Enter the name of the primary key"
-			echo "To go back press 0 if you leave now the table would be deleted"
-			echo "Please don't start the name with nummber"
-			echo "Please don't include any speccial character except for the underscore"
-			echo "---------------------------------------------"
+			echo "---------------------------------------------------------------------------"
+			echo "* Enter the name of the primary key                                       *"
+			echo "* To go back press 0 if you leave now the table would be deleted          *"
+			echo "* Please don't start the name with nummber                                *"
+			echo "* Please don't include any speccial character except for the underscore   *"
+			echo "---------------------------------------------------------------------------"
 			read pk
-			
 			case $pk in
 			+([a-zA-Z_]*[a-zA-Z0-9_]))
 					colnames[0]=$pk
 					typeset -i pkdatatype=0
 					while [ $pkdatatype -eq 0 ]
 					do
-					
-					 
-					echo "enter the data type of the primary key $pk"
-					echo "1)int"
-					echo "2)string"
-					echo "To go back press 0 if you leave the table would be deleted"
-					echo "---------------------------------------------"
+					echo "--------------------------------------------------------------"
+					echo "* enter the data type of the primary key $pk                 *"
+					echo "* 1)int                                                      *"
+					echo "* 2)string                                                   *"
+					echo "* To go back press 0 if you leave the table would be deleted *"
+					echo "--------------------------------------------------------------"
 					read data
 					case $data in
 						1)
+							clear
 							datatypes[0]="int"
 							let pkdatatype++
 							;;
 						2)
+							clear
 							datatypes[0]="string"
 							let pkdatatype++
 						;;
 						0)	
-						rm ./databases/$DBname/$TBname
-						source ./tablemenu.sh
+							clear
+							rm ./databases/$DBname/$TBname
+							source ./tablemenu.sh
 						;;
 						*)
-						clear	
-						echo "Not a valid option"
+							clear
+							echo "-------------------------------------------------"
+							echo "----------ERROR----------------------------------"
+							echo "* Not a valid Input                             *"
+							echo "* Please make sure to choose one of the options *"
+							echo "-------------------------------------------------" 
 						;;	
 					esac
 					done	
 					let primflag++
+					
 				;;
 			0)
+				clear
 				rm ./databases/$DBname/$TBname				
 				source ./tablemenu.sh
 				
 				;;
 			*)
-				echo "Not valid option"
+				clear
+				echo "-------------------------------------------------"
+				echo "----------ERROR----------------------------------"
+				echo "* Not a valid Input                             *"
+				echo "* Please make sure to choose one of the options *"
+				echo "-------------------------------------------------" 
 				;;
 			esac
-			
-			done	
+			done
+			fi	
 		        for ((i=1;i<${number};i++));
 			do
-			
 			typeset -i colflag=0
 			while [ $colflag -eq 0 ]
 			do
-			
 			echo $((i+1))":"
-			echo "Enter the name of the column to be created"
-			echo "Please don't start the name with nummber"
-			echo "Please don't include any speccial character except for the underscore"
-			echo "To go back press 0 if you leave now the table would be deleted"
-			echo "---------------------------------------------"
+			echo "--------------------------------------------------------------------------"
+			echo "* Enter the name of the column to be created                             *"
+			echo "* Please don't start the name with nummber                               *"
+			echo "* Please don't include any speccial character except for the underscore  *"
+			echo "* To go back press 0 if you leave now the table would be deleted         *"
+			echo "--------------------------------------------------------------------------"
 			read value
 			case $value in
 				+([a-zA-Z1-9_]*[a-zA-Z0-9_]))
 					if [[ ":$pk " =~ ":${value} " || " ${colnames[@]} " =~ ":${value} " ]]
 					then 
-					echo "This column already exists"
+					clear
+					echo "---------------------------------------------"
+					echo "* This column already exists                *"
+					echo "---------------------------------------------"
 					else
+					clear
 					colnames[$i]=":"$value
 					let colflag++
 					fi
 					;;
 				0)	
+					clear
 					rm ./databases/$DBname/$TBname
 					source ./tablemenu.sh
 					;;
 				*)	
-					echo "Not a valid name"
+					clear
+					echo "-------------------------------------------------"
+					echo "----------ERROR----------------------------------"
+					echo "* Not a valid Input                             *"
+					echo "* Please make sure to choose one of the options *"
+					echo "-------------------------------------------------" 
 					;;	
 			esac
 			done		
@@ -125,11 +151,12 @@ read
 			do
 			
 			echo $((i+1))":"
-			echo "enter the data type of $value" 
-			echo "1)int"
-			echo "2)string"
-			echo "To go back press 0 if you leave the table would be deleted"
-			echo "---------------------------------------------"
+			echo "--------------------------------------------------------------"
+			echo "* enter the data type of $value                              *" 
+			echo "* 1)int                                                      *"
+			echo "* 2)string                                                   *"
+			echo "* To go back press 0 if you leave the table would be deleted *"
+			echo "--------------------------------------------------------------"
 			read data
 			case $data in
 				1)	
@@ -143,46 +170,63 @@ read
 					let dataflag++
 					;;
 				0)	
+					clear
 					rm ./databases/$DBname/$TBname
 					source ./tablemenu.sh
 					;;
 				*)	
 					clear
-					echo "Not a valid name"
+					echo "-------------------------------------------------"
+					echo "----------ERROR----------------------------------"
+					echo "* Not a valid Input                             *"
+					echo "* Please make sure to choose one of the options *"
+					echo "-------------------------------------------------" 
 					;;	
 			esac
 			done	
 			done
 			clear
-			echo $TBname "Table has been created successfully"
-			echo "the table contains $number columns, the columns are"
-			echo ${colnames[@]}
-			echo "and their datatypes are"
-			echo ${datatypes[@]}
-			echo "---------------------------------------------"
 			echo ${colnames[*]} >> ./databases/$DBname/$TBname
 			echo ${datatypes[*]} >> ./databases/$DBname/$TBname
 			echo "---------------------------------------------"
-			cat ./databases/$DBname/$TBname 
+			#cat ./databases/$DBname/$TBname 
+			echo "---------------------------------------------------------" 
+			echo "* $TBname Table has been created successfully           *"
+			echo "---------------------------------------------------------"
+			echo "* The table contains $number columns, the columns are   *"
+			echo ${colnames[@]}
+			echo "* And their datatypes are                               *"
+			echo ${datatypes[@]}
+			echo "---------------------------------------------------------"
 			
-						sleep 2
-						source ./tablemenu.sh
-					fi
-					;;
+			sleep 4
+			source ./tablemenu.sh
+			;;
 				
 			*)
-			echo "Not a valid option"
+			clear
+			echo "-------------------------------------------------"
+			echo "----------ERROR----------------------------------"
+			echo "* Not a valid Input                             *"
+			echo "* Please make sure to choose one of the options *"
+			echo "-------------------------------------------------" 
 			;;
 			
 			esac		
 			done
 			;;	
 		2)
+			clear
 			rm ./databases/$DBname/$TBname
 			source ./tablemenu.sh
 				;;
 		*)
-			echo "Not a valid option"
+			clear
+			echo "-------------------------------------------------"
+			echo "----------ERROR----------------------------------"
+			echo "* Not a valid Input                             *"
+			echo "* Please make sure to choose one of the options *"
+			echo "-------------------------------------------------" 
 			;;
 	esac
 done

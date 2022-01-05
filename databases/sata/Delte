@@ -1,0 +1,6 @@
+name :id :lname :email :pin :phone
+string :int :string :string :int :int
+A :100:Said :A@gmail.com :23334 :22222
+B :101 :Samir :Bsamir@gmail.com :22222:01113468975
+BA :103 :ali :BA@gmail.com :33333 :011133366445
+AB :2222 :lily :BBBBBBBBBBBBBBBBB:0666 :01113336654

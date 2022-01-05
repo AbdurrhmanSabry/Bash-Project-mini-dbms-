@@ -4,11 +4,13 @@ export LC_COLLATE=C
 clear
 if [ `find ./databases/$DBname -maxdepth 0 -empty` ]
 then 
+    clear
     echo "---------------------------------------------" 
     echo "The $DBname is empty no table to insert into"
     echo "You need to create a table first"
     echo "---------------------------------------------" 
 else
+clear
     while true
     do
     echo "---------------------------------------------" 
@@ -22,6 +24,7 @@ else
                 +([a-zA-Z_]*[a-zA-Z0-9_]))
                                     if [ -f ./databases/$DBname/$tabletoinsertinto ]
                                     then
+                                        clear
                                         declare -a datatypesinsertasarray=()
                                         declare -a namesofcolsinsert=()
                                         numberoffields=0   
@@ -47,16 +50,18 @@ else
                                         echo "enter the value of the primary key ${namesofcolsinsert[0]}"
 					                    echo "${datatypesinsertasarray[0]} is the data of the primary key"
 					                    echo "To go back press 0 if you leave the record would be deleted"
-					                    echo "---------------------------------------------"
-                                        if [[ ${datatypesinsertasarray[0]} == "string" ]]
+					                    echo "-----------------------------------------------------------"
+                                        if [[ "${datatypesinsertasarray[0]}" =~ "string" ]]
                                         then    
                                             read pk
                                                 case $pk in
-                                                    +([a-zA-Z1-9][a-zA-Z0-9@._]))
+                                                   +([a-zA-Z]) | +([a-zA-Z1-9][a-zA-Z0-9@._]))
 					                                                if [[ " ${valueofpksinsert[@]} " =~ " $pk " ]]
 					                                                then 
                                                                     clear
-					                                                echo "This primary key already exists"
+                                                                    echo "---------------------------------------------" 
+					                                                echo "* This primary key already exists           *"
+                                                                    echo "---------------------------------------------" 
 					                                                else
                                                                     clear
 					                                                valuestoinsert[0]=$pk
@@ -69,7 +74,12 @@ else
 					                                     ;;
 			                                        *)	                                                        
 				                                    	       clear
-                                                                echo "Not a valid option"
+						                                        echo "-------------------------------------------------"
+						                                        echo "----------ERROR----------------------------------"
+						                                        echo "* Not a valid Input                             *"
+						                                        echo "* Please make sure to enter that you entered the*"
+						                                        echo "* correct name of the database to be dropped    *"
+						                                        echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
                                         else
@@ -78,17 +88,28 @@ else
                                                     +([1-9]) | +([1-9]*[0-9]))
 					                                                if [[ " ${valueofpksinsert[@]} " =~ " $pk " ]]
 					                                                then 
-					                                                echo "This primary key already exists"
+                                                                    clear
+                                                                    echo "---------------------------------------------" 
+					                                                echo "* This primary key already exists           *"
+                                                                    echo "---------------------------------------------" 
 					                                                else
+                                                                    clear
 					                                                valuestoinsert[0]=$pk
 					                                                let pkinsertflag++
 					                                                fi
 					                                     ;;
                                                     0)
+                                                                    clear
 					                                                source ./insert.sh
 					                                     ;;
 			                                        *)	                                                        
-				                                    	            echo "Not a valid option"
+				                                    	            clear
+						                                            echo "-------------------------------------------------"
+						                                            echo "----------ERROR----------------------------------"
+						                                            echo "* Not a valid Input                             *"
+						                                            echo "* Please make sure to enter that you entered the*"
+						                                            echo "* correct name of the database to be dropped    *"
+						                                            echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
                                         fi
@@ -97,11 +118,10 @@ else
                                         #sed -n '$i' ./path | cut -d: -f1 redirct to an value to array to save the pk
                                         #awk -F: '{if(NR == 2)print $0}' ./databases/$DBname/$tabletoinsertinto
                                         #problem in capturing the the datatypes with awk
-                                        #read value <<< $(awk -F: '{if(NR == 2)print $0}' ./databases/$DBname/$tabletoinsertinto)
+
                                         typeset -i valueinsetflag=0
                                         for (( i=1;i<numberoffields;i++ ));    
                                         do
-                                       
                                         valuestoinsert[$i]=":null"
                                         if [[ $valueinsetflag -gt 0 ]]
                                         then
@@ -114,7 +134,7 @@ else
 					                    echo "${datatypesinsertasarray[$i]} is the data of the ${namesofcolsinsert[$i]}"
 					                    echo "Press + if you want to skip this column"
                                         echo "To go back press - if you leave the rest of columns would be set to null"
-					                    echo "---------------------------------------------"
+					                    echo "--------------------------------------------------------------------------------"
                                         if [[ "${datatypesinsertasarray[$i]}" =~ "string" ]]
                                         then    
                                             read value
@@ -132,49 +152,72 @@ else
 					                                        let valueinsetflag++
                                                             ;;
 			                                        *)	                                                        
-				                                    	        echo "Not a valid input"
+				                                    	clear
+						                                echo "-------------------------------------------------"
+						                                echo "----------ERROR----------------------------------"
+						                                echo "* Not a valid Input                             *"
+						                                echo "* Please make sure to enter that you entered the*"
+						                                echo "* correct name of the database to be dropped    *"
+						                                echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
                                         else
                                             read value
                                             case $value in
                                                     +([0-9]) | +([0-9]*[0-9]))
+                                                            clear
 					                                         valuestoinsert[$i]=":$value"
 					                                         let valueinsetflag++
 					                                            
 					                                     ;;
                                                     -)
-					                                        let valueinsetflag+=1024
+					                                        clear
+                                                            let valueinsetflag+=1024
 					                                     ;;
                                                     +)
-					                                        let valueinsetflag++
+					                                        clear
+                                                            let valueinsetflag++
                                                         ;;
 			                                        *)	                                                        
-				                                    	            echo "Not a valid option"
+				                                    	    clear
+						                                    echo "-------------------------------------------------"
+						                                    echo "----------ERROR----------------------------------"
+						                                    echo "* Not a valid Input                             *"
+						                                    echo "* Please make sure to enter that you entered the*"
+						                                    echo "* correct name of the database to be dropped    *"
+						                                    echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
                                         fi
                                         done
                                         done
-                                        #sed -i "8 a ${values[*]}" ./databases/$DBname/$tabletoinsertinto
-                                        #typeset -i numofrecord=`cat ./databases/$DBname/$tabletoinsertinto | wc -l`
-                                        #echo ${values[*]} >> ./databases/$DBname/$tabletoinsertinto
-                                        #awk -F: '{ if($1==133){$1=333330;print $0} }' ./databases/$DBname/$tabletoinsertinto
-
                                         echo ${valuestoinsert[*]}  >> ./databases/$DBname/$tabletoinsertinto
-                                        echo "Inserted successfully"
-                                        sleep 1
+                                        echo "-------------------------------------------------"
+                                        echo "Record inserted successfully"
+                                        echo "-------------------------------------------------"
+                                        echo ${valuestoinsert[*]}
+                                        sleep 2
                                         source ./insert.sh
 
                                     else
-                                      echo "The $tabletoinsertinto table does not exist"
+                                        clear
+                                        echo "-------------------------------------------------"
+                                        echo "The $tabletoinsertinto table does not exist"
+                                        echo "-------------------------------------------------"
                                     fi
 								;;
 							0)
+                                clear
 								source ./tablemenu.sh
 								;;
 							*)
-								echo "Not a valid option"
+								clear
+						        echo "-------------------------------------------------"
+						        echo "----------ERROR----------------------------------"
+						        echo "* Not a valid Input                             *"
+						        echo "* Please make sure to enter that you entered the*"
+						        echo "* correct name of the database to be dropped    *"
+						        echo "-------------------------------------------------"
 					    	;;
         esac
     done

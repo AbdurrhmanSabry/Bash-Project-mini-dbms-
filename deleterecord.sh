@@ -1,5 +1,6 @@
 #!/bin/bash 
 #!/bin/bash
+
 shopt -s extglob
 export LC_COLLATE=C
 if [ `find ./databases/$DBname -maxdepth 0 -empty` ]
@@ -9,13 +10,15 @@ then
     echo "The $DBname is empty no table to delete from"
 	echo "---------------------------------------------"
 else
+clear
 while true 
-			clear
-			do
+do
+			echo "-------------------------------------------------"
 			echo "The avaliable tables are:"
 			ls ./databases/$DBname/
 			echo "1)To enter the name of the table to delete from"
 			echo "0)To go back to the previous menu"
+			echo "--------------------------------------------------"
 			read	
 				case $REPLY in
 				   	 1)
@@ -23,33 +26,46 @@ while true
 						typeset -i tbselectflag=0
 						while [ $tbselectflag -eq 0 ]
 						do
+						echo "----------------------------------------------------"
 						echo "The avaliable tables are:"
 						ls ./databases/$DBname/
 						echo "Enter the name of the table you want to select from"
 						echo "Press 0 to go back to the previous"
+						echo "----------------------------------------------------"
 						read tabledeletefrom
 						case $tabledeletefrom in
 							+([a-zA-Z_]*[a-zA-Z0-9_]))
                                     if [ -f ./databases/$DBname/$tabledeletefrom ]
                                    	then
-                                    clear
+                                    
                                     numberofrecordsdelete=`cat ./databases/$DBname/$tabledeletefrom | wc -l`
                                     fi
                                     if [ $numberofrecordsdelete  -lt 3 ]
-                                    then 
+                                    then 	
+											clear
+											echo "--------------------------------------------------"
                                             echo "This $tabledeletefrom has no records to be deleted"
+											echo "--------------------------------------------------"
                                     elif [ $numberofrecordsdelete -gt 2 ]
                                     then
+									clear
+									echo "--------------------------------------------------------------------------"
 									echo "To delete from $tabledeletefrom table choose one of the following options "
 									echo "1)To delete the whole table"
 									echo "2)To delete a specific record"
                                     echo "0)To go back"
+									echo "--------------------------------------------------------------------------"
 									read answer
 									case $answer in
 										1)
-												sed -i  '3,$d' ./databases/$DBname/$tabledeletefrom
+											clear
+											sed -i  '3,$d' ./databases/$DBname/$tabledeletefrom
+											echo "------------------------------------------------------------------"
+											echo "Every record in $tabledeletefrom was deleted"
+											echo "------------------------------------------------------------------"		
 											;;
-										2)	
+										2)
+										clear	
 										declare -a datatypesdelete=()
                                         declare -a namesofcolsdelete=()
                                         numberoffieldsdelete=0   
@@ -68,24 +84,30 @@ while true
                                         done
                                         while [ $pkdeleteflag -eq 0 ] 
                                         do
+										echo "--------------------------------------------------------------------------"
                                         sed -n '1p' ./databases/$DBname/$tabledeletefrom
                                         sed -n '2p' ./databases/$DBname/$tabledeletefrom
                                         echo "enter the value of the primary key ${namesofcolsdelete[0]} of the record you want to display"
 					                    echo "${datatypesdelete[0]} is the data type of the primary key"
 					                    echo "To go back press 0 if you leave Nothing would be displayed"
-					                    echo "---------------------------------------------"
+										echo "--------------------------------------------------------------------------"
                                         if [[ "${datatypesdelete[0]}" =~ "string" ]]
-                                        then    
+                                        then   
                                             read pk
                                                 case $pk in
-                                                    +([a-zA-Z1-9][a-zA-Z0-9@._]))
+                                                   +([a-zA-Z]) | +([a-zA-Z1-9][a-zA-Z0-9@._]))
 					                                                if [[ " ${valuesofpkdelete[@]} " =~ " $pk " ]]
 					                                                then 
+																	clear
+																	echo "--------------------------------------------------------------------"
 																	sed -i  "/^$pk :/d" ./databases/$DBname/$tabledeletefrom
+																	echo "--------------------------------------------------------------------"
                                                                     let pkdeleteflag++
 					                                                else
 																	clear
+																	echo "-----------------------------------------------------------"
 					                                                echo "This primary key does not exist"
+																	echo "-----------------------------------------------------------"
 					                                                fi
 					                                     ;;
                                                     0)
@@ -93,8 +115,12 @@ while true
                                                         source ./deleterecord.sh
 					                                     ;;
 			                                        *)	                                                        
-				                                    	       clear
-                                                                echo "Not a valid option"
+				                                    	clear
+														echo "-------------------------------------------------"
+														echo "----------ERROR----------------------------------"
+														echo "* Not a valid Input                             *"
+														echo "* Please make sure to choose one of the options *"
+														echo "-------------------------------------------------" 
 					                                     ;;
                                                 esac
                                         else
@@ -103,20 +129,31 @@ while true
                                                     +([1-9]) | +([1-9]*[0-9]))
 					                                                if [[ " ${valuesofpkdelete[@]} " =~ " $pk " ]]
 					                                                then 
+																	clear
+																	echo "--------------------------------------------------------------------"
 					                                                sed -i "/^$pk/d" ./databases/$DBname/$tabledeletefrom
+																	echo "--------------------------------------------------------------------"
 					                                                let pkdeleteflag++
 					                                                else
 					                                                
 																	clear
-																	echo "This primary key does not exist"
+																	echo "-----------------------------------------------------------"
+					                                                echo "This primary key does not exist"
+																	echo "-----------------------------------------------------------"
 					                                                fi
 					                                     ;;
                                                     0)
-					                                                source ./deleterecord.sh
+														clear
+					                                     source ./deleterecord.sh
 					                                     ;;
 			                                        *)	                                                        
-				                                    	            echo "Not a valid option"
-					                                     ;;
+				                                    	clear
+														echo "-------------------------------------------------"
+														echo "----------ERROR----------------------------------"
+														echo "* Not a valid Input                             *"
+														echo "* Please make sure to choose one of the options *"
+														echo "-------------------------------------------------"  
+					                                    ;;
                                                 esac
                                                 fi
                                       		  
@@ -125,31 +162,51 @@ while true
                                             
 											;;
                                         0)
+											clear
                                             source ./deleterecord.sh
                                             ;;
 										*)
-											echo "Not a valid option"
+											clear
+											echo "-------------------------------------------------"
+											echo "----------ERROR----------------------------------"
+											echo "* Not a valid Input                             *"
+											echo "* Please make sure to choose one of the options *"
+											echo "-------------------------------------------------" 
 											;;
 									esac
                                     else
-                                      echo "The $tabledeletefrom table does not exist"
-                                      
+										clear
+										echo "-----------------------------------------------------------"
+                                      	echo "The $tabledeletefrom table does not exist"
+										echo "-----------------------------------------------------------"
                                     fi
 								;;
 							0)
+								clear
 								source ./deleterecord.sh
 								;;
 							*)
-								echo "Not a valid option"
+								clear
+								echo "-------------------------------------------------"
+								echo "----------ERROR----------------------------------"
+								echo "* Not a valid Input                             *"
+								echo "* Please make sure to choose one of the options *"
+								echo "-------------------------------------------------" 
 								;;
 						esac
 						done
 						;;
 					 0)
+					 	clear
 						source ./tablemenu.sh
 					 	;;
 					 *)
-					 	echo "Not a valid option"
+					 	clear
+						echo "-------------------------------------------------"
+						echo "----------ERROR----------------------------------"
+						echo "* Not a valid Input                             *"
+						echo "* Please make sure to choose one of the options *"
+						echo "-------------------------------------------------" 
 					 	;;
 				esac
 done 

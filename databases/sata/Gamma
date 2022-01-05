@@ -1,0 +1,4 @@
+id :fname :lname :serial :ssn
+int :string :string :int :int
+101 :lara :mostafa :100032 :32222155
+

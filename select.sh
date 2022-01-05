@@ -1,6 +1,7 @@
 #!/bin/bash
 shopt -s extglob
 export LC_COLLATE=C
+
 if [ `find ./databases/$DBname -maxdepth 0 -empty` ]
 then 
 	clear
@@ -8,38 +9,47 @@ then
     echo "The $DBname is empty no table to select from"
 	echo "---------------------------------------------"
 else
-while true 
-			clear
-			do
-			echo "The avaliable tables are:"
-			ls ./databases/$DBname/
-			echo "1)To enter the name of the table to select from"
-			echo "0)To go back to the previous menu"
-			read	
+clear
+while true 			
+do
+	echo "---------------------------------------------"
+	echo "The avaliable tables are:"
+	ls ./databases/$DBname/
+	echo "1)To enter the name of the table to select from"
+	echo "0)To go back to the previous menu"
+	echo "---------------------------------------------"
+	read	
 				case $REPLY in
 				   	 1)
 						clear
 						typeset -i tbselectflag=0
 						while [ $tbselectflag -eq 0 ]
 						do
+						echo "-----------------------------------------------------"
 						echo "The avaliable tables are:"
 						ls ./databases/$DBname/
 						echo "Enter the name of the table you want to select from"
 						echo "Press 0 to go back to the previous"
+						echo "-----------------------------------------------------"
 						read tabletoselectfrom
 						case $tabletoselectfrom in
 							+([a-zA-Z_]*[a-zA-Z0-9_]))
                                     if [ -f ./databases/$DBname/$tabletoselectfrom ]
                                    	then
                                     clear
+									echo "------------------------------------------------------------------------------"
 									echo "To select from $tabletoselectfrom table choose one of the following options "
 									echo "1)To display the whole table"
 									echo "2)To display a specific row"
                                     echo "0)To go back"
+									echo "------------------------------------------------------------------------------"
 									read answer
 									case $answer in
 										1)
-												cat ./databases/$DBname/$tabletoselectfrom
+											clear
+											echo "-----------------------------------------------------"
+											cat ./databases/$DBname/$tabletoselectfrom
+											echo "----------------------------------------------------"
 											;;
 										2)	
 										declare -a datatypesselect=()
@@ -61,24 +71,30 @@ while true
                                         done
                                         while [ $pkselectflag -eq 0 ] 
                                         do
+										echo "-------------------------------------------------------------------------------------"
                                         sed -n '1p' ./databases/$DBname/$tabletoselectfrom
                                         sed -n '2p' ./databases/$DBname/$tabletoselectfrom
                                         echo "enter the value of the primary key ${namesofcolsselect[0]} of the record you want to display"
 					                    echo "${datatypesselect[0]} is the data type of the primary key"
 					                    echo "To go back press 0 if you leave Nothing would be displayed"
-					                    echo "---------------------------------------------"
+					                    echo "--------------------------------------------------------------------------------------"
                                         if [[ "${datatypesselect[0]}" =~ "string" ]]
                                         then    
                                             read pk
                                                 case $pk in
-                                                    +([a-zA-Z1-9][a-zA-Z0-9@._]))
+                                                    +([a-zA-Z]) | +([a-zA-Z1-9][a-zA-Z0-9@._]))
 					                                                if [[ " ${valueofpksselect[@]} " =~ " $pk " ]]
-					                                                then 
-																	cat ./databases/$DBname/$tabletoselectfrom | grep ^$pk :
+					                                                then
+																	clear
+																	echo "-----------------------------------------------------------------------"
+																	cat ./databases/$DBname/$tabletoselectfrom | grep "^$pk :"
+																	echo "-----------------------------------------------------------------------"
                                                                     let pkselectflag++
 					                                                else
 																	clear
-					                                                echo "This primary key does not exist"
+																	echo "-----------------------------------------------------"
+					                                                echo "* This primary key does not exist                   *"
+																	echo "-----------------------------------------------------"
 					                                                fi
 					                                     ;;
                                                     0)
@@ -86,8 +102,12 @@ while true
                                                         source ./select.sh
 					                                     ;;
 			                                        *)	                                                        
-				                                    	       clear
-                                                                echo "Not a valid option"
+				                                    	clear
+														echo "-------------------------------------------------"
+														echo "----------ERROR----------------------------------"
+														echo "* Not a valid Input                             *"
+														echo "* Please make sure to choose one of the options *"
+														echo "-------------------------------------------------" 
 					                                     ;;
                                                 esac
                                         else
@@ -96,19 +116,30 @@ while true
                                                     +([1-9]) | +([1-9]*[0-9]))
 					                                                if [[ " ${valueofpksselect[@]} " =~ " $pk " ]]
 					                                                then 
+																	clear
+																	echo "---------------------------------------------------------------------"
+																	echo "The selected record"
 					                                                cat ./databases/$DBname/$tabletoselectfrom | grep "^$pk :"
+																	echo "---------------------------------------------------------------------"
 					                                                let pkselectflag++
 					                                                else
-					                                                
 																	clear
-																	echo "This primary key does not exist"
+																	echo "-----------------------------------------------------"
+					                                                echo "* This primary key does not exist                   *"
+																	echo "-----------------------------------------------------"
 					                                                fi
 					                                     ;;
                                                     0)
-					                                                source ./select.sh
+															clear
+					                                        source ./select.sh
 					                                     ;;
 			                                        *)	                                                        
-				                                    	            echo "Not a valid option"
+				                                    	    clear
+															echo "-------------------------------------------------"
+															echo "----------ERROR----------------------------------"
+															echo "* Not a valid Input                             *"
+															echo "* Please make sure to choose one of the options *"
+															echo "-------------------------------------------------" 
 					                                     ;;
                                                 esac
                                       		  fi
@@ -117,30 +148,51 @@ while true
                                             
 											;;
                                         0)
+											clear
                                             source ./select.sh
                                             ;;
 										*)
-											echo "Not a valid option"
+											clear
+											echo "-------------------------------------------------"
+											echo "----------ERROR----------------------------------"
+											echo "* Not a valid Input                             *"
+											echo "* Please make sure to choose one of the options *"
+											echo "-------------------------------------------------" 
 											;;
 									esac
                                     else
-                                      echo "The $tabletoselectfrom table does not exist"
+										clear
+										echo "-----------------------------------------------------"
+                                      	echo "The $tabletoselectfrom table does not exist"
+										echo "-----------------------------------------------------"
                                     fi
 								;;
 							0)
+								clear
 								source ./select.sh
 								;;
 							*)
-								echo "Not a valid option"
+								clear
+								echo "-------------------------------------------------"
+								echo "----------ERROR----------------------------------"
+								echo "* Not a valid Input                             *"
+								echo "* Please make sure to choose one of the options *"
+								echo "-------------------------------------------------" 
 								;;
 						esac
 						done
 						;;
 					 0)
+					 	clear
 						source ./tablemenu.sh
 					 	;;
 					 *)
-					 	echo "Not a valid option"
+					 	clear
+						echo "-------------------------------------------------"
+						echo "----------ERROR----------------------------------"
+						echo "* Not a valid Input                             *"
+						echo "* Please make sure to choose one of the options *"
+						echo "-------------------------------------------------" 
 					 	;;
 				esac
 done 

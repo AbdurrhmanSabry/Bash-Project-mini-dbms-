@@ -1,2 +1,0 @@
-ssn :fname :lname :address :phone :job
-int :string :string :string :int :string
