@@ -1,5 +1,5 @@
 # A&A dbms project
-### created by Abdurrhman Sabry 
+### created by Abdurrhman Sabry & Abdurrhaim saad
 ## This DBMS has three layers
 ### 1. Database layer
 The entry point of this program main.sh\
