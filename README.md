@@ -2,7 +2,7 @@
 ### created by Abdurrhman Sabry 
 ## This DBMS has three layers
 ### 1. Database layer
-The entry poin of this program main.sh\
+The entry point of this program main.sh\
 This layer allows the user to achieve the following:\
 1. Create a database.
 2. Connect to already existing database.
