@@ -59,7 +59,7 @@ do
 												source ./tablemenu.sh
 											;;
 										n|N) 	clear
-												source ./droptable
+												source ./droptable.sh
 											;;
 										*)
 											clear

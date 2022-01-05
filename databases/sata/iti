@@ -1,0 +1,4 @@
+name :id :lname :phone :track
+string :int :string :int :string
+Said :11 :samir:11111 :SD
+yasser :130 :samah :000000:cloud

@@ -178,8 +178,8 @@ clear
                                                 echo "-------------------------------------------------"
                                         read prk
                                         case $prk in
-                                            +([a-zA-Z1-9]) | +([a-zA-Z0-9]*[a-zA-Z0-9_@.]))
-                                            if [[ " ${pkvaluesupdate[*]} " =~ "$prk" ]]
+                                            +([a-zA-Z]) | +([a-zA-Z0-9]*[a-zA-Z0-9_@.]))
+                                            if [[ "${pkvaluesupdate[*]} " =~ "$prk " ]]
                                             then
                                             clear
                                             echo "-------------------------------------------------"

@@ -10,9 +10,9 @@ then
 	sleep 1
 	source ./main.sh
 else
+clear
 while true   
 do
-clear
 echo "--------------------------------------------------------------"
 echo "-----The avaliable databases are:-----------------------------"
 ls -A ./databases/                                       

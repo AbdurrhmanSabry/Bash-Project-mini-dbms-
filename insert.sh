@@ -55,7 +55,7 @@ clear
                                         then    
                                             read pk
                                                 case $pk in
-                                                   +([a-zA-Z]) | +([a-zA-Z1-9][a-zA-Z0-9@._]))
+                                                   +([a-zA-Z]) | +([a-zA-Z1-9]*[a-zA-Z0-9@._]))
 					                                                if [[ " ${valueofpksinsert[@]} " =~ " $pk " ]]
 					                                                then 
                                                                     clear

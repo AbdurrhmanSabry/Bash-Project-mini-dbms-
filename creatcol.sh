@@ -117,7 +117,7 @@ read
 			echo "--------------------------------------------------------------------------"
 			read value
 			case $value in
-				+([a-zA-Z1-9_]*[a-zA-Z0-9_]))
+				+([a-zA-Z_]*[a-zA-Z0-9_]))
 					if [[ ":$pk " =~ ":${value} " || " ${colnames[@]} " =~ ":${value} " ]]
 					then 
 					clear
