@@ -16,7 +16,7 @@ This layer allows the user to achieve the following:\
 ### 3. Record layer
 In this dbms, there are only two data types:\
 a.int(0-9)\
-b.string(a-z A-Z _@.)\ 
+b.string(a-z A-Z _@.). 
 This layer allows the user to achieve the following:\
 1. Create the columns of the table.
 2. Select certain records of the tableor the whole table.
