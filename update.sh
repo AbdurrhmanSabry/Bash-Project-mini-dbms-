@@ -73,6 +73,7 @@ clear
                                             echo "------------------------------------------------------------------"
                                             head -$numberofrecordsupdate ./databases/$DBname/$tabletoupdate
                                             echo  "Enter the field number " 
+                                            echo  "You are not allowed to update the primary key"
                                             echo  "Enter - to go back" 
                                             echo "------------------------------------------------------------------"             
                                             read fieldnumnber 
@@ -80,9 +81,19 @@ clear
                                              +([1-9]) | +([1-9]*[0-9]))
                                                 if [ $fieldnumnber -gt $numberoffieldsupdate ]
                                                 then
+                                                        clear
                                                         echo "------------------------------------------------------------------"
                                                         echo "The number of field you entered does not exist"
                                                         echo "------------------------------------------------------------------"
+
+                                                elif [[ $fieldnumnber -eq 1 ]]
+                                                then 
+                                                        clear
+                                                        echo "------------------------------------------------------------------"
+                                                        echo "You are not allowed to update the primary key"
+                                                        echo "------------------------------------------------------------------"              
+                                                         let pkflagupdate++
+                                                         sleep 1
                                                 else
                                                 clear
                                                         declare -a fieldvalues=()
@@ -185,11 +196,28 @@ clear
                                             echo "-------------------------------------------------"
                                             head -$numberofrecordsupdate ./databases/$DBname/$tabletoupdate
                                             echo  "Enter the field number " 
+                                            echo "You are not allowed to update the primary key"
                                             echo  "Enter - to go back"
                                             echo "-------------------------------------------------"               
                                             read fieldnumnber 
                                             case  $fieldnumnber in 
                                              +([1-9]) | +([1-9]*[0-9]))
+                                             if [ $fieldnumnber -gt $numberoffieldsupdate ]
+                                                then
+                                                        clear
+                                                        echo "------------------------------------------------------------------"
+                                                        echo "The number of field you entered does not exist"
+                                                        echo "------------------------------------------------------------------"
+
+                                                elif [[ $fieldnumnber -eq 1 ]]
+                                                then 
+                                                       clear
+                                                       echo "------------------------------------------------------------------"
+                                                        echo "You are not allowed to update the primary key"
+                                                        echo "------------------------------------------------------------------"              
+                                                         let pkflagupdate++
+                                                         sleep 1
+                                                else
                                             declare -a fieldvalues=()
                                             oldvalue=`cat ./databases/$DBname/$tabletoupdate | grep "^$prk :" | cut -d: -f$fieldnumnber`
                                             clear
@@ -242,6 +270,7 @@ clear
 			                                                echo "-------------------------------------------------" 
                                                         ;;
                                             esac
+                                            fi
                                             fi
                                             ;;
                                             -)
