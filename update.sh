@@ -179,7 +179,7 @@ clear
 		                                    echo "----------ERROR----------------------------------"
 			                                echo "* Not a valid Input                             *"
 			                                echo "-------------------------------------------------" 
-                                           source ./update.sh
+                                           
                                            ;;
                                          esac
                                          else   
@@ -302,7 +302,7 @@ clear
 			                                echo "----------ERROR----------------------------------"
 			                                echo "* Not a valid Input                             *"
 			                                echo "-------------------------------------------------" 
-                                           source ./update.sh
+                                           
                                            ;;
                                          esac
                                          fi
