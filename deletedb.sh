@@ -49,7 +49,7 @@ case $REPLY in
 										clear		 
 			            				rm -r ./databases/$name
 										echo "-------------------------------------------------"
-										echo "* $name  was dropped successfully               *"
+										echo "* $name Database was dropped successfully       *"
 										echo "-------------------------------------------------"
 										sleep 1
 										source ./deletedb.sh

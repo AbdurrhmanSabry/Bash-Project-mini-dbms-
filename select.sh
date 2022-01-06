@@ -51,7 +51,10 @@ do
 											cat ./databases/$DBname/$tabletoselectfrom
 											echo "----------------------------------------------------"
 											;;
-										2)	
+										2)
+										typeset -i selectcheckthenumofcolumns=`cat ./databases/$DBname/$tabletoselectfrom | wc -l`
+										if [[ $selectcheckthenumofcolumns -gt 2 ]]
+										then	
 										declare -a datatypesselect=()
                                         declare -a namesofcolsselect=()
                                         numberoffieldsselect=0   
@@ -144,8 +147,13 @@ do
                                                 esac
                                       		  fi
                                       		  done
-
-                                            
+											else
+											clear
+											echo "-------------------------------------------------"
+											echo "----------ERROR----------------------------------"
+											echo "*This table has no record to be selected        *"
+											echo "-------------------------------------------------" 
+											fi
 											;;
                                         0)
 											clear

@@ -39,13 +39,15 @@ clear
                                             datatypesupdate[$i-1]=`sed -n '2p' ./databases/$DBname/$tabletoupdate | cut -d: -f$i `            
                                     done
                                     
-                                    if [ $numberofrecordsupdate -lt 3 ]
-                                    then 
+                                    if [[ $numberofrecordsupdate -lt 3 ]] 
+                                    then
                                         clear
                                         echo "-------------------------------------------------------"
                                         echo "This table $tabletoupdate has no record to be updated"
                                         echo "-------------------------------------------------------"
-                                    elif [ $numberofrecordsupdate -gt 2 ]
+                                    fi  
+                                       
+                                    if [ $numberofrecordsupdate -gt 2 ]
                                     then
                                     clear
                                         declare -a pkvaluesupdate=()
@@ -67,13 +69,13 @@ clear
                                         read prk
                                         case $prk in
                                             +([1-9]) | +([1-9]*[0-9]))
-                                            if [[ " ${pkvaluesupdate[*]} " =~ " $prk " ]]
+                                            if [[ " ${pkvaluesupdate[*]} " =~ "$prk " ]]
                                             then
                                             clear
                                             echo "------------------------------------------------------------------"
                                             head -$numberofrecordsupdate ./databases/$DBname/$tabletoupdate
                                             echo  "Enter the field number " 
-                                            echo  "You are not allowed to update the primary key"
+                                            #echo  "You are not allowed to update the primary key"
                                             echo  "Enter - to go back" 
                                             echo "------------------------------------------------------------------"             
                                             read fieldnumnber 
@@ -86,14 +88,14 @@ clear
                                                         echo "The number of field you entered does not exist"
                                                         echo "------------------------------------------------------------------"
 
-                                                elif [[ $fieldnumnber -eq 1 ]]
-                                                then 
-                                                        clear
-                                                        echo "------------------------------------------------------------------"
-                                                        echo "You are not allowed to update the primary key"
-                                                        echo "------------------------------------------------------------------"              
-                                                         let pkflagupdate++
-                                                         sleep 1
+                                                #elif [[ $fieldnumnber -eq 1 ]]
+                                                #then 
+                                                #        clear
+                                                #        echo "------------------------------------------------------------------"
+                                                #        echo "You are not allowed to update the primary key"
+                                                #        echo "------------------------------------------------------------------"              
+                                                #         let pkflagupdate++
+                                                #         sleep 1
                                                 else
                                                 clear
                                                         declare -a fieldvalues=()
@@ -108,10 +110,27 @@ clear
                                             then
                                             case $value in
                                                          +([0-9]) | +([0-9]*[0-9]))
-                                                        sed -i -e "/^$prk :/s/$oldvalue/$value/"  ./databases/$DBname/$tabletoupdate
+                                                         if  [[ $fieldnumnber -eq 1 ]]
+                                                        then 
+                                                            if [[ " ${pkvaluesupdate[*]} " =~ "$value " ]]
+                                                            then
+                                                            clear
+                                                            echo "This primary key is already used"
+                                                             else
+                                                             clear
+                                                             sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
+                                                            let pkflagupdate++
+                                                            echo "Updated Successfully"
+                                                             sleep 1
+                                                             
+                                                            fi
+                                                        else
+                                                        sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
                                                         let pkflagupdate++
                                                         echo "Updated Successfully"
                                                         sleep 1
+                                                        
+                                                        fi
                                                           ;;
                                                         -)
                                                             clear
@@ -128,10 +147,25 @@ clear
                                             else
                                             case $value in
                                                         +([a-zA-Z0-9]) | +([a-zA-Z0-9]*[a-zA-Z0-9_@.]))
-                                                        sed -i -e "/^$prk :/s/$oldvalue/$value/"  ./databases/$DBname/$tabletoupdate
+                                                        if  [[ $fieldnumnber -eq 1 ]]
+                                                        then 
+                                                            
+                                                            if [[ " ${pkvaluesupdate[*]} " =~ " $value " ]]
+                                                            then
+                                                            sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
+                                                            let pkflagupdate++
+                                                            echo "Updated Successfully"
+                                                             sleep 1
+                                                             else
+                                                             echo "This primary key is already used"
+                                                            fi
+                                                        else
+                                                        sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
                                                         let pkflagupdate++
                                                         echo "Updated Successfully"
                                                         sleep 1
+                                                        
+                                                        fi
                                                           ;;
                                                         -)
                                                             clear
@@ -166,7 +200,7 @@ clear
                                             else
                                                 clear
                                                 echo "-------------------------------------------------"
-                                                echo "This value $prk does not exist int"
+                                                echo "This primary key value $prk does not exist int"
                                                 echo "-------------------------------------------------"
                                             fi
 					                        ;;
@@ -190,13 +224,13 @@ clear
                                         read prk
                                         case $prk in
                                             +([a-zA-Z]) | +([a-zA-Z0-9]*[a-zA-Z0-9_@.]))
-                                            if [[ "${pkvaluesupdate[*]} " =~ "$prk " ]]
+                                            if [[ " ${pkvaluesupdate[*]} " =~ "$prk " ]]
                                             then
                                             clear
                                             echo "-------------------------------------------------"
                                             head -$numberofrecordsupdate ./databases/$DBname/$tabletoupdate
                                             echo  "Enter the field number " 
-                                            echo "You are not allowed to update the primary key"
+                                            #echo "You are not allowed to update the primary key"
                                             echo  "Enter - to go back"
                                             echo "-------------------------------------------------"               
                                             read fieldnumnber 
@@ -209,14 +243,14 @@ clear
                                                         echo "The number of field you entered does not exist"
                                                         echo "------------------------------------------------------------------"
 
-                                                elif [[ $fieldnumnber -eq 1 ]]
-                                                then 
-                                                       clear
-                                                       echo "------------------------------------------------------------------"
-                                                        echo "You are not allowed to update the primary key"
-                                                        echo "------------------------------------------------------------------"              
-                                                         let pkflagupdate++
-                                                         sleep 1
+                                                #elif [[ $fieldnumnber -eq 1 ]]
+                                                #then 
+                                                #       clear
+                                                #       echo "------------------------------------------------------------------"
+                                                #        echo "You are not allowed to update the primary key"
+                                                #        echo "------------------------------------------------------------------"              
+                                                #         let pkflagupdate++
+                                                #         sleep 1
                                                 else
                                             declare -a fieldvalues=()
                                             oldvalue=`cat ./databases/$DBname/$tabletoupdate | grep "^$prk :" | cut -d: -f$fieldnumnber`
@@ -231,10 +265,26 @@ clear
                                             case $value in
                                                          +([0-9]) | +([0-9]*[0-9]))
                                                             clear
-                                                            sed -i -e "/^$prk :/s/$oldvalue/$value/"  ./databases/$DBname/$tabletoupdate
+                                                            if  [[ $fieldnumnber -eq 1 ]]
+                                                        then 
+                                                            if [[ " ${pkvaluesupdate[*]} " =~ "$value " ]]
+                                                            then
+                                                            clear
+                                                            echo "This primary key is already used"
+                                                             else
+                                                             sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
                                                             let pkflagupdate++
                                                             echo "Updated Successfully"
                                                              sleep 1
+                                                             
+                                                            fi
+                                                        else
+                                                        sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
+                                                        let pkflagupdate++
+                                                        echo "Updated Successfully"
+                                                        sleep 1
+                                                        
+                                                        fi
                                                           ;;
                                                         -)
                                                             clear
@@ -252,10 +302,26 @@ clear
                                             else
                                             case $value in
                                                         +([a-zA-Z0-9]) | +([a-zA-Z0-9]*[a-zA-Z0-9_@.]))
-                                                        sed -i -e "/^$prk :/s/$oldvalue/$value/"  ./databases/$DBname/$tabletoupdate
+                                                        if  [[ $fieldnumnber -eq 1 ]]
+                                                        then 
+                                                            if [[ " ${pkvaluesupdate[*]} " =~ "$value " ]]
+                                                            then
+                                                            clear
+                                                            echo "This primary key is already used"
+                                                             else
+                                                             sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
+                                                            let pkflagupdate++
+                                                            echo "Updated Successfully"
+                                                             sleep 1
+                                                             
+                                                            fi
+                                                        else
+                                                        sed -i -e "/^$prk :/s/$oldvalue/$value /"  ./databases/$DBname/$tabletoupdate
                                                         let pkflagupdate++
                                                         echo "Updated Successfully"
                                                         sleep 1
+                                                        
+                                                        fi
                                                           ;;
                                                         -)
                                                             clear
@@ -289,7 +355,7 @@ clear
                                             else
                                                 clear
                                                 echo "-------------------------------------------------"
-                                                echo "This value $prk does not exist string"
+                                                echo "This primary key $prk does not exist string"
                                                 echo "-------------------------------------------------"
                                             fi
 					                        ;;
@@ -306,13 +372,15 @@ clear
                                            ;;
                                          esac
                                          fi
-                                         done  
+                                         done
+                                         fi
+                                       
                                     else
                                         clear
                                         echo "-------------------------------------------------"
                                         echo "The $tabletoupdate table does not exist"
                                         echo "-------------------------------------------------"
-                                    fi
+                                    
                                     fi
 								;;
 							0)

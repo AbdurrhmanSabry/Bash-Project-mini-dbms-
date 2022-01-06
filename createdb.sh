@@ -1,9 +1,10 @@
 #!/bin/bash
 shopt -s extglob
 export LC_COLLATE=C
+clear
 while true 
 do
-clear
+
 echo "-------------------------------------------------"
 echo "* 1) To enter database name you want to create  *" 
 echo "* 2) go back to main menu                       *" 
@@ -87,7 +88,11 @@ read
 				exit
 				;;
 			*)
-		 		echo "Not valid option"
+		 		clear
+				echo "-------------------------------------------------"
+				echo "----------ERROR----------------------------------"
+				echo "* This input is not valid                       *"
+				echo "-------------------------------------------------"
 				;;
 	esac 
 done

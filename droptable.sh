@@ -7,6 +7,7 @@ then
 	echo "-----------------------------------------------"
     echo "* The $DBname is empty no table to be dropped *"
 	echo "-----------------------------------------------"
+	sleep 2
 	source ./tablemenu.sh
 else
 clear
@@ -56,6 +57,8 @@ do
 										y|Y)
 												clear
 												rm ./databases/$DBname/$tabletodrop
+												echo "$tabletodrop table was successfully dropped"
+												sleep 2
 												source ./tablemenu.sh
 											;;
 										n|N) 	clear
@@ -67,7 +70,7 @@ do
 											echo "----------ERROR----------------------------------"
 											echo "* Not a valid Input                             *"
 											echo "* Please make sure to enter that you entered the*"
-											echo "* correct name of the database to be dropped    *"
+											echo "* correct name of the table to be dropped       *"
 											echo "-------------------------------------------------"
 											;;
 									esac
@@ -87,8 +90,8 @@ do
 								echo "-------------------------------------------------"
 								echo "----------ERROR----------------------------------"
 								echo "* Not a valid Input                             *"
-								echo "* Please make sure to enter that you entered the*"
-								echo "* correct name of the database to be dropped    *"
+								echo "* Please make sure          that you entered the*"
+								echo "* correct name of the table to be dropped       *"
 								echo "-------------------------------------------------"
 								;;
 						esac
@@ -103,8 +106,8 @@ do
 						echo "-------------------------------------------------"
 						echo "----------ERROR----------------------------------"
 						echo "* Not a valid Input                             *"
-						echo "* Please make sure to enter that you entered the*"
-						echo "* correct name of the database to be dropped    *"
+						echo "* Please make sure that you entered the         *"
+						echo "* correct name of the table to be dropped       *"
 						echo "-------------------------------------------------"
 					 	;;
 				esac

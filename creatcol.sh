@@ -34,6 +34,8 @@ read
 				sleep 1					
 				source ./tablemenu.sh
 			else
+			declare -a colnames=()
+			declare -a datatypes=()
 			typeset -i primflag=0
 			while [ $primflag -eq 0 ] 
 			do

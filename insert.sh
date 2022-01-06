@@ -77,8 +77,8 @@ clear
 						                                        echo "-------------------------------------------------"
 						                                        echo "----------ERROR----------------------------------"
 						                                        echo "* Not a valid Input                             *"
-						                                        echo "* Please make sure to enter that you entered the*"
-						                                        echo "* correct name of the database to be dropped    *"
+						                                        echo "* Please make sure          that you entered the*"
+						                                        echo "* correct input                                 *"
 						                                        echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
@@ -107,8 +107,8 @@ clear
 						                                            echo "-------------------------------------------------"
 						                                            echo "----------ERROR----------------------------------"
 						                                            echo "* Not a valid Input                             *"
-						                                            echo "* Please make sure to enter that you entered the*"
-						                                            echo "* correct name of the database to be dropped    *"
+						                                            echo "* Please make sure          that you entered the*"
+						                                            echo "* correct input                                 *"
 						                                            echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
@@ -156,8 +156,8 @@ clear
 						                                echo "-------------------------------------------------"
 						                                echo "----------ERROR----------------------------------"
 						                                echo "* Not a valid Input                             *"
-						                                echo "* Please make sure to enter that you entered the*"
-						                                echo "* correct name of the database to be dropped    *"
+						                                echo "* Please make sure          that you entered the*"
+						                                echo "* correct input                                 *"
 						                                echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
@@ -183,8 +183,8 @@ clear
 						                                    echo "-------------------------------------------------"
 						                                    echo "----------ERROR----------------------------------"
 						                                    echo "* Not a valid Input                             *"
-						                                    echo "* Please make sure to enter that you entered the*"
-						                                    echo "* correct name of the database to be dropped    *"
+						                                    echo "* Please make sure  that you entered the        *"
+						                                    echo "* correct input                                 *"
 						                                    echo "-------------------------------------------------"
 					                                     ;;
                                                 esac
@@ -215,8 +215,8 @@ clear
 						        echo "-------------------------------------------------"
 						        echo "----------ERROR----------------------------------"
 						        echo "* Not a valid Input                             *"
-						        echo "* Please make sure to enter that you entered the*"
-						        echo "* correct name of the database to be dropped    *"
+						        echo "* Please make sure that you entered the         *"
+						        echo "* correct input                                 *"
 						        echo "-------------------------------------------------"
 					    	;;
         esac
